@@ -10,7 +10,7 @@
   <body>
     <header>
       <nav>
-        links here: Home, Contributors, Dances,  Sign Out
+        links here: <a href="/">Home</a>, <a href="/users">Contributors</a>, Dances, New Posting, Sign Out
       </nav>
     </header>
     <main>
@@ -18,7 +18,7 @@
       <ul>
         <% for(var i = 0; i < allUsers.length; i++){ %>
           <li>
-            <a href="/users/<%=allUsers[i].id%>"><%=allUsers[i].username%></a>
+            <a href="/users/<%=allUsers[i].id%>"><%=allUsers[i].displayName%></a>
           </li>
           <% } %>
       </ul>

@@ -12,7 +12,7 @@ var session = require('express-session');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
-// session middleware
+// session middleware here
 
 // route controller
 var usersController = require('./controllers/users.js');

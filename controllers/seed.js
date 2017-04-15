@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user.js');
+var bcrypt = require('bcrypt');
 
 // only need to visit this route once to create new data
 router.get('/newusers', function(req,res){
@@ -31,10 +32,15 @@ router.get('/newusers', function(req,res){
     },
   ];
 
-  User.create(newUsers, function(err) {
-      console.log("SEED: NEW USERS!");
-      res.redirect('/');
-  });
+  // User.create(newUsers, function(err) {
+  //     console.log("SEED: NEW USERS!");
+  //     res.redirect('/');
+  // });
+  for (var i=0; i<newUsers.length; i++){
+    newUsers[i].password = bcrypt.hashSync(newUsers[i].password, bcrypt.genSaltSync(10));
+    User.create(newUsers[i], function(err, createdUser){});
+  }
+
 });
 
 
