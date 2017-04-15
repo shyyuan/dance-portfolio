@@ -8,24 +8,36 @@ var Dance = require('../models/dance.js');
 var Comments = require('../models/comment.js');
 
 router.get('/', function(req, res){
-  res.send('View All Dances posting')
-	// Dance.find({}, function(err, dbDances){
-	// 	res.render('dances/index.ejs', {
-	// 		allDances: dbDances
-	// 	});
-	// });
+	Dance.find({}, function(err, dbDances){
+		res.render('dances/index.ejs', {
+			allDances: dbDances
+		});
+	});
 });
 
 //  Create New Dance posting page
 router.get('/new', function(req,res){
-  res.send('Create New Dancve Posting')
-  //res.render('dances/new.ejs');
+  res.render('dances/new.ejs');
 });
 
 // Create new dance record in db
 router.post('/', function(req, res){
-  res.send('need data')
-
+  console.log(req.body);
+  Dance.create(req.body, function(err, createdRecord){
+    res.redirect('/dances')
+  });
 });
+
+// Read one dance posting
+router.get('/:id', function(req,res){
+  Dance.findById(req.params.id, function(err, dbRecord){
+    res.render('dances/show.ejs',{
+      dance: dbRecord
+    });
+  });
+});
+
+
+
 
 module.exports = router;

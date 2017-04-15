@@ -1,6 +1,5 @@
 <!-- Project 2: Dance Portfolio -->
-<!-- View individual user page -->
-
+<!-- Default dances index page (View All Dances posting) -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,10 +13,13 @@
       </nav>
     </header>
     <main>
-      <h1>View one Contributors <%=user.displayName%></h1>
-      allowed edit profile if current user is the contributor.
+      <h1>All Dances Posting</h1>
       <ul>
-        <li>Display all the dances that posted by this user here</li>
+        <% for(var i = 0; i < allDances.length; i++){ %>
+          <li>
+            <a href="/dances/<%=allDances[i].id%>"><%=allDances[i].title%></a>
+          </li>
+          <% } %>
       </ul>
 
     </main>
