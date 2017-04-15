@@ -6,8 +6,8 @@ var User = require('./user.js');
 
 // comment schema
 var commentSchema = mongoose.Schema({
-  comment: String
-  postedBy: {type: User.shcema.ObjectId, ref: 'User'}
+  comments: String,
+  postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
 var Comments = mongoose.model('Comment', commentSchema);

@@ -17,6 +17,8 @@ app.use(methodOverride('_method'));
 // route controller
 var usersController = require('./controllers/users.js');
 app.use('/users', usersController);
+var dancesController = require('./controllers/dances.js');
+app.use('/dances', dancesController);
 var seedController = require('./controllers/seed.js')
 app.use('/seed', seedController);
 
