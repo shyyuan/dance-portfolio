@@ -17,7 +17,8 @@ app.use(methodOverride('_method'));
 // route controller
 var usersController = require('./controllers/users.js');
 app.use('/users', usersController);
-
+var seedController = require('./controllers/seed.js')
+app.use('/seed', seedController);
 
 // Mongoose Db
 mongoose.connect('mongodb://localhost:27017/danceportfolio');
