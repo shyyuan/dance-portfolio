@@ -1,0 +1,31 @@
+<!-- Project 2: Dance Portfolio -->
+<!-- Default users index page (View All Users) -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        links here: Home, Contributors, Dances,  Sign Out
+      </nav>
+    </header>
+    <main>
+      <h1>All Contributors</h1>
+      <ul>
+        <% for(var i = 0; i < allUsers.length; i++){ %>
+          <li>
+            <a href="/users/<%=allUsers[i].id%>"><%=allUsers[i].username%></a>
+          </li>
+          <% } %>
+      </ul>
+
+    </main>
+    <footer>
+
+    </footer>
+  </body>
+</html>

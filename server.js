@@ -1,3 +1,5 @@
+// Project 2: Dance Portfolio
+// server.js file
 // require package
 var express = require('express');
 var app = express();
@@ -13,6 +15,8 @@ app.use(methodOverride('_method'));
 // session middleware
 
 // route controller
+var usersController = require('./controllers/users.js');
+app.use('/users', usersController);
 
 
 // Mongoose Db
