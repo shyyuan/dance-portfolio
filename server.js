@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var currentUser = req.session.loggedInUser || 'unknown';
+//var currentUser = req.session.loggedInUser || 'unknown';
 
 // middleware
 app.use(session({
