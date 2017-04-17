@@ -12,6 +12,7 @@ var danceSchema = mongoose.Schema({
   postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   img: String,
   video: String,
+  likes: Number,
   comments: [Comments.schema]
 });
 

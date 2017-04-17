@@ -1,0 +1,31 @@
+<!-- Project 2: Dance Portfolio -->
+<!-- the Navbar that every page should include  -->
+
+<nav class="navbar navbar-defaul">
+<div class="container-fluid">
+  <div class="nav navbar-nav navbar-left">
+    <ul class="nav navbar-nav">
+      <!-- Using session to control the acess -->
+      <li><a href="/">Home</a></li>
+      <li><a href="/dances">Dances</a></li>
+      <li><a href="/dances/new">New Posting</a></li>
+      <li><a href="/users">Contributors</a></li>
+    </ul>
+  </div>
+
+  <div class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav">
+      <!-- If not login yet, show these two -->
+      <% if (currentUser === 'unknown') { %>
+        <li><a href="/sessions/new">Login</a></li>
+        <li><a href="/users/new">Sign Up</a></li>
+      <!-- else if logged in, show these two  -->
+      <% } else { %>
+        <li><a href="/users/<%=currentUser._id%>/edit">Edit Profile</a></li>
+        <li><a href="/sessions/<%=currentUser._id%>/delete">Log Out</a></li>
+      <% } %>
+    </ul>
+  </div>
+
+</div>
+</nav>

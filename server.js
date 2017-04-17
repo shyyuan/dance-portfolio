@@ -7,14 +7,22 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
+var currentUser = 'unknown';
 
 // middleware
+app.use(session({
+  secret:"loggedinthedanceportfolio",
+  resave: false,
+  saveUninitialized:false
+}));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
-// session middleware here
+
 
 // route controller
+var sessionsController = require('./controllers/sessions.js');
+app.use('/sessions', sessionsController);
 var usersController = require('./controllers/users.js');
 app.use('/users', usersController);
 var dancesController = require('./controllers/dances.js');
@@ -28,16 +36,15 @@ mongoose.connection.once('open', function(){
   console.log('Project 2 Dance Portfolio connect to mongo db');
 });
 
-// default (login page)
+
 app.get('/', function(req,res){
-  res.render('index.ejs');
-  // for later session
-  // res.render('index.ejs', {
-  //   currentUser: req.session.currentuser
-  // });
+  if (req.session.loggedInUser){
+    currentUser = req.session.loggedInUser
+  }
+  res.render('index.ejs', {
+     currentUser: currentUser
+  });
 });
-
-
 
 
 app.listen(3000, function(){
