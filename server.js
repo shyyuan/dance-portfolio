@@ -1,13 +1,16 @@
 // Project 2: Dance Portfolio
 // server.js file
 // require package
+var port = process.env.PORT || 3000;
+var mongoDBURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/danceportfolio';
+
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var currentUser = 'unknown';
+var currentUser = req.session.loggedInUser || 'unknown';
 
 // middleware
 app.use(session({
@@ -31,15 +34,17 @@ var seedController = require('./controllers/seed.js')
 app.use('/seed', seedController);
 
 // Mongoose Db
-mongoose.connect('mongodb://localhost:27017/danceportfolio');
+mongoose.connect(mongoDBURI);
 mongoose.connection.once('open', function(){
   console.log('Project 2 Dance Portfolio connect to mongo db');
 });
 
 
 app.get('/', function(req,res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
   res.render('index.ejs', {
      currentUser: currentUser
@@ -47,6 +52,6 @@ app.get('/', function(req,res){
 });
 
 
-app.listen(3000, function(){
+app.listen(port, function(){
   console.log('Project 2 Dance Portfolio Listen');
 });

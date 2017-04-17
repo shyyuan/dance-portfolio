@@ -10,8 +10,10 @@ var currentUser = 'unknown';
 
 // default dances index page
 router.get('/', function(req, res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
   Dance.find({}, function(err, dbDances){
 		res.render('dances/index.ejs', {
@@ -23,9 +25,14 @@ router.get('/', function(req, res){
 
 //  Create New Dance posting page
 router.get('/new', function(req,res){
-  if (req.session.loggedInUser){
+  //console.log(req.session.loggedInUser);
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
+  //console.log(req.session.loggedInUser);
+  //console.log(currentUser);
   // only logged in user can post new dance
   if (currentUser === 'unknown'){
     res.redirect('/sessions/new');
@@ -40,14 +47,16 @@ router.get('/new', function(req,res){
 router.post('/', function(req, res){
   console.log(req.body);
   Dance.create(req.body, function(err, createdRecord){
-    res.redirect('/dances')
+      res.redirect('/dances');
   });
 });
 
 // Read one dance posting
 router.get('/:id', function(req,res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
   Dance.findById(req.params.id, function(err, dbRecord){
     res.render('dances/show.ejs',{
@@ -56,7 +65,6 @@ router.get('/:id', function(req,res){
     });
   });
 });
-
 
 
 

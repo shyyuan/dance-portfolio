@@ -7,23 +7,30 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <header>
-      <% include ../partials/nav %>
-    </header>
-    <main>
+    <% include ../partials/nav %>
+    <div class="container">
+      <div class="row">
+      <div class="col-md-4"> </div>
+      <div class="col-md-4">
       <h1>Login In</h1>
-      <form class="" action="/sessions" method="POST">
+      <br/>
 
-        Username: <input type="text" name="username" value="">
-        Password: <input type="password" name="password" value="">
-
-        <input type="submit" name="" value="Log In">
+      <form class="form-horizontal" action="/sessions" method="POST">
+        <div class="form-group">
+          <label for="username">Username: </label>
+          <input type="text" name="username" id="username" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label for="password">Password: </label>
+          <input type="password" name="password" id="password" class="form-control">
+        </div>
+        
+        <input type="submit" class="btn btn-primary" value="Log In">
       </form>
+      </div>
+      <div class="col-md-4"> </div>
+    </div> <!-- row -->
+    </div> <!-- container -->
 
-
-    </main>
-    <footer>
-
-    </footer>
   </body>
 </html>

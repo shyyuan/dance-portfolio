@@ -6,23 +6,30 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <header>
-      <% include ../partials/nav %>
-    </header>
-    <main>
-      <h1>Create an Account</h1>
-      <form class="" action="/users" method="POST">
+    <% include ../partials/nav %>
+    <div class="container">
+      <div class="row">
+      <div class="col-md-4"> </div>
+      <div class="col-md-4">
+        <h1>Create an Account</h1>
+        <br/>
+        <form class="form-horizontal" action="/users" method="POST">
+          <div class="form-group">
+            <label for="username">Username: </label><input type="text" name="username" class="form-control" id="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password: </label><input type="password" name="password" id="password" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="displayName">Display Name:</label> <input type="text" name="displayName" id="displayName" class="form-control">
+          </div>
+          <input type="submit" name="" value="Create" class="btn btn-primary">
 
-        Username: <input type="text" name="username" value="">
-        Password: <input type="password" name="password" value="">
-        Display Name: <input type="text" name="displayName" value="">
-        <input type="submit" name="" value="Create Account">
-      </form>
+        </form>
+        </div>
+        <div class="col-md-4"> </div>
+      </div> <!-- row -->
+    </div> <!-- container -->
 
-
-    </main>
-    <footer>
-
-    </footer>
   </body>
 </html>

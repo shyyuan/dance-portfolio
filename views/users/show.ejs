@@ -11,11 +11,20 @@
       <% include ../partials/nav %>
     </header>
     <main>
-      <h1>View one Contributors <%=user.displayName%></h1>
-      allowed edit profile if current user is the contributor.
-      <ul>
-        <li>Display all the dances that posted by this user here</li>
-      </ul>
+      <h1><%=user.displayName%>'s Posting</h1>
+
+
+            <div class="container">
+              <% for(var i = 0; i < dances.length; i++){ %>
+              <div class="dance">
+                <h3 class="dance-title"><a href="/dances/<%=dances[i].id%>"><%=dances[i].title%></a></h3>
+                <div class="danceImg">
+                  <img class="danceImg" src="<%=dances[i].img%>" alt="">
+                </div>
+              </div>
+              <% } %>
+            </div>
+
 
     </main>
     <footer>

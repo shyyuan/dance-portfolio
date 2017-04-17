@@ -7,40 +7,57 @@ var User = require('../models/user.js');
 var bcrypt = require('bcrypt');
 var currentUser = 'unknown';
 
+
 // New Session Page (Sign In)
 router.get('/new', function(req,res){
   res.render('sessions/new.ejs', {
-    currentUser:currentUser
+    currentUser:currentUser,
+    loggedin: 'new'
   });
 });
 
 //
 router.post('/', function(req, res){
+  console.log(req.body);
   User.findOne({username:req.body.username}, function(err, foundUser){
-    if (bcrypt.compareSync(req.body.password,foundUser.password)){
-      req.session.loggedInUser = foundUser;
-      res.redirect('/dances');
+    console.log(foundUser);
+    if (foundUser === null ) {
+      //res.redirect('/sessions/new')
+      res.render('sessions/failed.ejs');
     } else {
-      res.send('username/password are not match');
+      if (req.body.password !== null && bcrypt.compareSync(req.body.password,foundUser.password)){
+        req.session.loggedInUser = foundUser;
+        res.redirect('/dances');
+      } else {
+        //res.redirect('/sessions/new')
+        res.render('sessions/failed.ejs');
+      }
     }
   });
 });
 
-// default dances index page
+// default dances index page (home)
 router.get('/', function(req, res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
-  res.render('/index.ejs', {
+  res.render('index.ejs', {
     currentUser:currentUser
   });
 });
 
 // Sign out
 router.get('/:id/delete', function(req, res){
-    req.session.destroy(function(){
-      res.redirect('/');
+  req.session.loggedInUser = 'unknown';
+  req.session.destroy(function(){
+    currentUser = 'unknown';
+    //res.redirect('/');
+    res.render('index.ejs', {
+      currentUser: currentUser
     });
+  });
 });
 
 module.exports = router;

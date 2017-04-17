@@ -6,22 +6,24 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <header>
+
       <% include ../partials/nav %>
-    </header>
+
     <main>
       <h1>All Dances Posting</h1>
-      <ul>
+
+      <div class="container">
         <% for(var i = 0; i < allDances.length; i++){ %>
-          <li>
-            <a href="/dances/<%=allDances[i].id%>"><%=allDances[i].title%></a>
-          </li>
-          <% } %>
-      </ul>
+        <div class="dance">
+          <h3 class="dance-title"><a href="/dances/<%=allDances[i].id%>"><%=allDances[i].title%></a></h3>
+          <div class="danceImg">
+            <img class="danceImg" src="<%=allDances[i].img%>" alt="">
+          </div>
+        </div>
+        <% } %>
+      </div>
 
     </main>
-    <footer>
 
-    </footer>
   </body>
 </html>

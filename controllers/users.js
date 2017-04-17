@@ -4,13 +4,16 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user.js');
+var Dance = require('../models/dance.js');
 var bcrypt = require('bcrypt');
 var currentUser = 'unknown';
 
 // default user index page (list all users)
 router.get('/', function(req,res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
   User.find({}, function(err, dbUsers){
     res.render('users/index.ejs', {
@@ -39,21 +42,28 @@ router.post('/', function(req, res){
 
 // Read one user
 router.get('/:id', function(req,res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
   User.findById(req.params.id, function(err, dbRecord){
-    res.render('users/show.ejs',{
-      user: dbRecord,
-      currentUser:currentUser
+    Dance.find({postedBy: req.params.id}, function(err, dbDances){
+      res.render('users/show.ejs',{
+        user: dbRecord,
+        currentUser:currentUser,
+        dances: dbDances
+      });
     });
   });
 });
 
 // Only logged In user can edit his profile
 router.get('/:id/edit', function(req, res){
-  if (req.session.loggedInUser){
+  if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
   if (currentUser === 'unknown'){
     res.redirect('/sessions/new');
@@ -67,5 +77,25 @@ router.get('/:id/edit', function(req, res){
   }
 });
 
+// Update profile in DB
+router.put('/:id', function(req, res){
+  // console.log('edit profile: '+req.session.loggedInUser);
+  // if (req.session.loggedInUser !== undefined){
+  //   currentUser = req.session.loggedInUser
+  // } else {
+  //   currentUser = 'unknown';
+  // }
+  // if (currentUser === 'unknown' || currentUser.id !== req.params.id){
+  //   res.redirect('/sessions/new');
+  // } else {
+    if (req.body.action === 'Cancel'){
+      res.redirect('/users');
+    } else {
+      User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, response){
+        res.redirect('/users');
+      });
+    }
+  //}
+});
 
 module.exports = router;
