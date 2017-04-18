@@ -30,8 +30,11 @@ var usersController = require('./controllers/users.js');
 app.use('/users', usersController);
 var dancesController = require('./controllers/dances.js');
 app.use('/dances', dancesController);
+var commentsController = require('./controllers/comments.js')
+app.use('/comments', commentsController);
 var seedController = require('./controllers/seed.js')
 app.use('/seed', seedController);
+
 
 // Mongoose Db
 mongoose.connect(mongoDBURI);
