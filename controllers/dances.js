@@ -58,9 +58,6 @@ router.get('/:id', function(req,res){
   } else {
     currentUser = 'unknown';
   }
-  if (currentUser === 'unknown') {
-    res.redirect('/sessions/new');
-  } else {
     Dance.findById(req.params.id, function(err, dbRecord){
       User.findById(dbRecord.postedBy, function(err, foundUser){
         console.log('Dance: ' + dbRecord);
@@ -72,17 +69,53 @@ router.get('/:id', function(req,res){
         });
       });
     });
+});
+
+// edit danve info page
+router.get('/:id/edit', function(req, res){
+  if (req.session.loggedInUser !== undefined){
+    currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
   }
+  if (currentUser === 'unknown') {
+    res.redirect('/sessions/new');
+  } else {
+    Dance.findById(req.params.id, function(err, dbRecord){
+      User.findById(dbRecord.postedBy, function(err, foundUser){
+        res.render('dances/edit.ejs',{
+          dance: dbRecord,
+          user: foundUser,
+          currentUser: currentUser
+        });
+      });
+    });
+  }
+
+
+
+
+
 });
 
 
+
+// Delete dance posting
 router.delete('/:id', function(req, res){
   Dance.findByIdAndRemove(req.params.id, function(err, response){
     res.redirect('/dances');
   });
 });
 
-
+// like the posting
+router.get('/:id/like', function(req, res){
+  Dance.findByIdAndUpdate(req.params.id,
+    {$inc: {likes:1}},
+    {new:true},
+    function(err, response){
+      res.redirect('/dances/'+req.params.id);
+  });
+});
 
 
 module.exports = router;

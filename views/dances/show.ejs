@@ -4,6 +4,10 @@
 <html>
   <head>
     <% include ../partials/head %>
+    <%
+      var videoLink = dance.video;
+      var viewVideo = videoLink.substr(32);
+    %>
   </head>
   <body>
     <% include ../partials/nav %>
@@ -19,15 +23,25 @@
 
         <div class="col-md-6">
 
-          <p><%=dance.description%></p>
-          <video src="<%=dance.video%>"></video>
+          <h5><%=dance.description%></h5>
+
+          <p><a href="<%=dance.video%>"><%=dance.video%></a></p>
+
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%=viewVideo%>" frameborder="0" allowfullscreen></iframe>
+
+
           <br/>
-          <span class="alert"><a href="/dances/<%=dance.id%>/addlike">like</a></span>: <%=dance.likes%> <br/>
-          <a href="/comments/<%=dance.id%>/new">Comments</a>
+          <span class="alert"><a href="/dances/<%=dance.id%>/like">like</a></span>: <%=dance.likes%> <br/>
+
           <br/>
 
+          <% if (currentUser !== 'unknown') { %>
+          <a href="/comments/<%=dance.id%>/new">Comments</a>
+          <% }%>
 
           <% if (user.id === currentUser._id) { %>
+
+
             <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
               <input type="submit" name="" value="Delete">
             </form>
