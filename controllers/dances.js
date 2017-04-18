@@ -93,7 +93,21 @@ router.get('/:id/edit', function(req, res){
   }
 });
 
-
+// Update DB
+router.put('/:id', function(req, res){
+  if (req.session.loggedInUser !== undefined){
+    currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
+  }
+  if (currentUser === 'unknown') {
+    res.redirect('/sessions/new');
+  } else {
+    Dance.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, updatedRecord){
+      res.redirect('/dances/'+req.params.id);
+    });
+  }
+});
 
 // Delete dance posting
 router.delete('/:id', function(req, res){
