@@ -91,11 +91,6 @@ router.get('/:id/edit', function(req, res){
       });
     });
   }
-
-
-
-
-
 });
 
 

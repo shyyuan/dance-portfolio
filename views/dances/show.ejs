@@ -10,47 +10,41 @@
     %>
   </head>
   <body>
-    <% include ../partials/nav %>
 
+    <% include ../partials/nav %>
+    <div class="container">
     <h1><%=dance.title%></h1>
     <h3>Posted By <%=user.displayName%></h3>
 
-    <div class="container-fluid">
+
       <div class="row">
         <div class="col-md-6">
           <img class="viewImg" src="<%=dance.img%>">
+          <h5><%=dance.description%></h5>
         </div>
 
         <div class="col-md-6">
-
-          <h5><%=dance.description%></h5>
-
-          <p><a href="<%=dance.video%>"><%=dance.video%></a></p>
-
           <iframe width="560" height="315" src="https://www.youtube.com/embed/<%=viewVideo%>" frameborder="0" allowfullscreen></iframe>
-
-
-          <br/>
-          <span class="alert"><a href="/dances/<%=dance.id%>/like">like</a></span>: <%=dance.likes%> <br/>
-
+          <br/><br/>
+          <p><a href="<%=dance.video%>" target="_blank"><%=dance.video%></a></p>
           <br/>
 
-          <% if (currentUser !== 'unknown') { %>
-          <a href="/comments/<%=dance.id%>/new">Comments</a>
-          <% }%>
-
-          <% if (user.id === currentUser._id) { %>
-
-
-            <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
-              <input type="submit" name="" value="Delete">
-            </form>
-
-            <a href="/dances/<%=dance.id%>/edit">Edit</a>
-
-          <% } %>
-        </div>
-      <div><!-- row -->
+          <div>
+            <ul>
+              <li><a href="/dances/<%=dance.id%>/like">like</a>: <%=dance.likes%> </li>
+              <% if (currentUser !== 'unknown') { %>
+              <li><a href="/comments/<%=dance.id%>/new">Comments</a></li>
+              <% }%>
+              <% if (user.id === currentUser._id) { %>
+              <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
+              <li><input type="submit" name="" value="Delete"></li>
+              </form>
+              <li><a href="/dances/<%=dance.id%>/edit">Edit</a></li>
+              <% } %>
+            </ul>
+          </div>  
+        </div> <!-- col-md-6 -->
+      </div><!-- row -->
 
     </div> <!-- container-fluid -->
 

@@ -8,11 +8,11 @@
   <body>
 
       <% include ../partials/nav %>
+      <div class="container">
 
-    <main>
       <h1>All Dances Posting</h1>
 
-      <div class="container">
+
         <% for(var i = 0; i < allDances.length; i++){ %>
         <div class="dance">
           <h3 class="dance-title"><a href="/dances/<%=allDances[i].id%>"><%=allDances[i].title%></a></h3>
@@ -23,7 +23,7 @@
         <% } %>
       </div>
 
-    </main>
+
 
   </body>
 </html>
