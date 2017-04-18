@@ -9,9 +9,12 @@ body {
 
 .navbar {
   background: #b3ffb3;
-  font: black;
+  color: black;
 }
 
+.alert {
+  color: red;
+}
 .dance {
   display: inline-block;
   background-color: #F8ECD8;
@@ -24,4 +27,8 @@ body {
   height: 250px;
   border: 1px solid white;
   align-items: center;
+}
+
+.viewImg {
+  width: 100%;
 }

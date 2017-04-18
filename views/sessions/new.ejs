@@ -14,7 +14,9 @@
       <div class="col-md-4">
       <h1>Login In</h1>
       <br/>
-
+      <% if (screenMessage !== 'new') { %>
+        <span class='alert'><%=screenMessage%></span><br/><br/>
+      <%}%>
       <form class="form-horizontal" action="/sessions" method="POST">
         <div class="form-group">
           <label for="username">Username: </label>
@@ -24,7 +26,7 @@
           <label for="password">Password: </label>
           <input type="password" name="password" id="password" class="form-control">
         </div>
-        
+
         <input type="submit" class="btn btn-primary" value="Log In">
       </form>
       </div>

@@ -58,13 +58,30 @@ router.get('/:id', function(req,res){
   } else {
     currentUser = 'unknown';
   }
-  Dance.findById(req.params.id, function(err, dbRecord){
-    res.render('dances/show.ejs',{
-      dance: dbRecord,
-      currentUser: currentUser
+  if (currentUser === 'unknown') {
+    res.redirect('/sessions/new');
+  } else {
+    Dance.findById(req.params.id, function(err, dbRecord){
+      User.findById(dbRecord.postedBy, function(err, foundUser){
+        console.log('Dance: ' + dbRecord);
+        console.log('Posted: ' + foundUser);
+        res.render('dances/show.ejs',{
+          dance: dbRecord,
+          user: foundUser,
+          currentUser: currentUser
+        });
+      });
     });
+  }
+});
+
+
+router.delete('/:id', function(req, res){
+  Dance.findByIdAndRemove(req.params.id, function(err, response){
+    res.redirect('/dances');
   });
 });
+
 
 
 

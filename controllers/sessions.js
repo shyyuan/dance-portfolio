@@ -12,25 +12,31 @@ var currentUser = 'unknown';
 router.get('/new', function(req,res){
   res.render('sessions/new.ejs', {
     currentUser:currentUser,
-    loggedin: 'new'
+    screenMessage: 'new'
   });
 });
 
-//
+// Check username and password after signed in
 router.post('/', function(req, res){
   console.log(req.body);
   User.findOne({username:req.body.username}, function(err, foundUser){
     console.log(foundUser);
     if (foundUser === null ) {
       //res.redirect('/sessions/new')
-      res.render('sessions/failed.ejs');
+      //res.render('sessions/failed.ejs');
+      res.render('sessions/new.ejs', {
+        screenMessage: 'Username/Password are not match.'
+      });
     } else {
       if (req.body.password !== null && bcrypt.compareSync(req.body.password,foundUser.password)){
         req.session.loggedInUser = foundUser;
         res.redirect('/dances');
       } else {
         //res.redirect('/sessions/new')
-        res.render('sessions/failed.ejs');
+        //res.render('sessions/failed.ejs');
+        res.render('sessions/new.ejs', {
+          screenMessage: 'Username/Password are not match.'
+        });
       }
     }
   });

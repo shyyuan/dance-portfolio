@@ -6,19 +6,39 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <header>
-      <% include ../partials/nav %>
-    </header>
-    <main>
-      <h1>View one dance posring <%=dance.title%></h1>
+    <% include ../partials/nav %>
 
-      <ul>
-        <li>Display all the dance comments here </li>
-      </ul>
+    <h1><%=dance.title%></h1>
+    <h3>Posted By <%=user.displayName%></h3>
 
-    </main>
-    <footer>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <img class="viewImg" src="<%=dance.img%>">
+        </div>
 
-    </footer>
+        <div class="col-md-6">
+
+          <p><%=dance.description%></p>
+          <video src="<%=dance.video%>"></video>
+          <br/>
+          <span class="alert"><a href="/dances/<%=dance.id%>/addlike">like</a></span>: <%=dance.likes%> <br/>
+          <a href="/comments/<%=dance.id%>/new">Comments</a>
+          <br/>
+
+
+          <% if (user.id === currentUser._id) { %>
+            <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
+              <input type="submit" name="" value="Delete">
+            </form>
+
+            <a href="/dances/<%=dance.id%>/edit">Edit</a>
+
+          <% } %>
+        </div>
+      <div><!-- row -->
+
+    </div> <!-- container-fluid -->
+
   </body>
 </html>

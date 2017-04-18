@@ -32,16 +32,11 @@ router.get('/newusers', function(req,res){
     },
   ];
 
-  // User.create(newUsers, function(err) {
-  //     console.log("SEED: NEW USERS!");
-  //     res.redirect('/');
-  // });
   for (var i=0; i<newUsers.length; i++){
     newUsers[i].password = bcrypt.hashSync(newUsers[i].password, bcrypt.genSaltSync(10));
     User.create(newUsers[i], function(err, createdUser){});
   }
 
 });
-
 
 module.exports = router;
