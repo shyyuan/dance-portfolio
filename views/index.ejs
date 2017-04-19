@@ -4,18 +4,47 @@
 <html>
   <head>
     <% include ./partials/head %>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
-    <header>
-      <% include ./partials/nav %>
-    </header>
+    <% include ./partials/nav %>
+    <div class="container ">
 
-    <main>
-      default index page and Home (about) page.
-    </main>
-    <footer>
+      <h3><% if (currentUser !== 'unknown') { %><%=currentUser.displayName%><% } %></h3>
+      <%=currentUser._id%>
+      <h4>welcome to the Dance Portfolio site.  View the dances in the collection, sign up to leave a comments or to be a contributor to post your favorite dance piece.</h4>
+      <br/><br/>
+      <div class="w3-content w3-section centerDiv"
+    <img class="mySlides w3-animate-fading homeImg" src="./images/09-1-FJ7_7857.jpg" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/10-1-DesertBeauties_FJ79363.jpg" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/10-2-BNC-51.jpg" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/10-2-YiParadise_DSC_4502.JPG" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/11-Bells_DSC_4412.JPG" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/12-DSC04943.JPG" alt="">
+    </div>
 
-    </footer>
+
+    </div>
+    <!-- Credit to
+    https://www.w3schools.com/w3css/w3css_slideshow.asp -->
+    <script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 4000);
+}
+</script>
+
 
   </body>
 </html>

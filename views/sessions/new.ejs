@@ -15,8 +15,9 @@
       <h1>Login In</h1>
       <br/>
       <% if (screenMessage !== 'new') { %>
-        <span class='alert'><%=screenMessage%></span><br/><br/>
+        <span class='alert'><%=screenMessage%></span>
       <%}%>
+      <br/><br/>
       <form class="form-horizontal" action="/sessions" method="POST">
         <div class="form-group">
           <label for="username">Username: </label>

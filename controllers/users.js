@@ -15,10 +15,18 @@ router.get('/', function(req,res){
   } else {
     currentUser = 'unknown';
   }
-  User.find({}, function(err, dbUsers){
-    res.render('users/index.ejs', {
-      allUsers: dbUsers,
-      currentUser: currentUser
+  Dance.find({},function(err, results){
+    var postedByArr = [];
+    for (i=0;i<results.length; i++){
+      postedByArr.push(results[i].postedBy);
+    }
+    console.log(postedByArr);
+    User.find().where('_id').in(postedByArr).exec(function(err, dbUsers){
+      console.log(dbUsers);
+      res.render('users/index.ejs', {
+        allUsers: dbUsers,
+        currentUser: currentUser
+      });
     });
   });
 });

@@ -7,11 +7,11 @@
     <% include ../partials/head %>
   </head>
   <body>
-    <header>
-      <% include ../partials/nav %>
-    </header>
-    <main>
-      <h1>All Contributors</h1>
+    <% include ../partials/nav %>
+    <div class="container">
+
+
+      <h3>All Contributors</h3>
       <ul>
         <% for(var i = 0; i < allUsers.length; i++){ %>
           <li>
@@ -20,9 +20,6 @@
           <% } %>
       </ul>
 
-    </main>
-    <footer>
-
-    </footer>
+    </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
     <% include ../partials/head %>
     <%
       var videoLink = dance.video;
-      var viewVideo = videoLink.substr(32);
+      var viewVideo = videoLink.substr(32,11);
     %>
   </head>
   <body>
@@ -14,7 +14,7 @@
     <% include ../partials/nav %>
     <div class="container">
     <h1><%=dance.title%></h1>
-    <h3>Posted By <%=user.displayName%></h3>
+    <h3>Posted By <a href="/users/<%=dancePublisher._id%>"><%=dancePublisher.displayName%></a></h3>
 
 
       <div class="row">
@@ -35,8 +35,9 @@
               <% if (currentUser !== 'unknown') { %>
               <li><a href="/comments/<%=dance.id%>/new">Comments</a></li>
               <% }%>
-              <% if (user.id === currentUser._id) { %>
+              <% if (dancePublisher.id === currentUser._id) { %>
               <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
+                <input type="hidden" name="postedBy" value="<%=dancePublisher.id%>">
               <li><input type="submit" name="" value="Delete"></li>
               </form>
               <li><a href="/dances/<%=dance.id%>/edit">Edit</a></li>
@@ -45,6 +46,25 @@
           </div>
         </div> <!-- col-md-6 -->
       </div><!-- row -->
+      <hr>
+      <div>
+        <ul>
+          <% for (var i=0; i<dance.comments.length; i++) { %>
+            <li><%=dance.comments[i].postedBy%> (<%=dance.comments[i].displayName%>): <%=dance.comments[i].comments%>
+              (Current User: <%=currentUser._id%> )
+
+            <% if (currentUser !== 'unknown') {
+                if (dance.comments[i].postedBy == currentUser._id)  { %>
+                <a href="/comments/<%=dance.comments[i].id%>/edit">Edit</a>
+                <% }
+                if (dance.comments[i].postedBy == currentUser._id || dancePublisher.id == currentUser._id) { %>
+                <a href="/comments/<%=dance.comments[i].id%>/delete">Delete</a>            
+              <% } } %>
+            </li>
+          <% }%>
+        </ul>
+
+      </div>
 
     </div> <!-- container-fluid -->
 

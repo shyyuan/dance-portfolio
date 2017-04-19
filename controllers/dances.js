@@ -58,17 +58,20 @@ router.get('/:id', function(req,res){
   } else {
     currentUser = 'unknown';
   }
-    Dance.findById(req.params.id, function(err, dbRecord){
+
+    Dance.findById(req.params.id).populate('Comments.PostedBy','displayName').exec(function(err, dbRecord){
+      console.log(dbRecord);
       User.findById(dbRecord.postedBy, function(err, foundUser){
-        console.log('Dance: ' + dbRecord);
-        console.log('Posted: ' + foundUser);
+        //console.log('Dance: ' + dbRecord);
+        //console.log('Posted: ' + foundUser);
         res.render('dances/show.ejs',{
           dance: dbRecord,
-          user: foundUser,
+          dancePublisher: foundUser,
           currentUser: currentUser
-        });
+
       });
     });
+  });
 });
 
 // edit danve info page
@@ -111,8 +114,13 @@ router.put('/:id', function(req, res){
 
 // Delete dance posting
 router.delete('/:id', function(req, res){
-  Dance.findByIdAndRemove(req.params.id, function(err, response){
-    res.redirect('/dances');
+  Dance.findById(req.params.id, function(err, foundDance){
+    for (var i=0; i<foundDance.comments.length; i++){
+      Comments.findByIdAndRemove(oundDance.comments[i].id, function(){});
+    }
+    Dance.findByIdAndRemove(req.params.id, function(err, response){
+      res.redirect('/dances');
+    });
   });
 });
 

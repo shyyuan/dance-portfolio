@@ -1,0 +1,43 @@
+<!-- Project 2: Dance Portfolio -->
+<!-- Edit comments about a dance -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/nav %>
+    <div class="container">
+      <h1><%=dance.title%></h1>
+      <h3>Posted By <%=dancePublisher.displayName%></h3>
+        <div class="row">
+          <div class="col-md-6">
+            <img class="viewImg" src="<%=dance.img%>">
+            <h5><%=dance.description%></h5>
+          </div>
+
+          <div class="col-md-6">
+            <h3>Edit Comments</h3>
+            <form class="form-horizontal" action="/comments/<%=comments._id%>?_method=PUT" method="post">
+
+              <div class="form-group">
+                <!-- <input type="text" name="description" id="description"> -->
+                <textarea name="comments" id="comments" class="form-control" rows="2"><%=comments.comments%></textarea>
+              </div>
+              <input type="hidden" name="postedBy" value="<%=currentUser._id%>">
+              <input type="hidden" name="dancePiece" value="<%=dance._id%>">
+              <input type="submit" name="" value="Update" class="btn btn-primary">
+              <a href="/dances/<%=dance.id%>">Cancel</a>
+            </form>
+
+
+
+          </div> <!-- col-md-6 -->
+        </div><!-- row -->
+
+      </div> <!-- container-fluid -->
+
+    </div>
+  </body>
+</html>

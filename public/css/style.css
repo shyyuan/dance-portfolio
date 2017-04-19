@@ -6,6 +6,17 @@
 body {
   background-color: #e6ffe6;
 }
+h1, h2, h3, h4,  {
+  text-align: center;
+}
+
+.centerDiv {
+  padding: 0 8% 0 12%;
+}
+
+.homeImg {
+  width: 80%;
+}
 
 .navbar {
   background: #b3ffb3;
@@ -24,7 +35,7 @@ body {
 }
 .danceImg{
   width: 250px;
-  height: 250px;
+  height: 180px;
   border: 1px solid white;
   align-items: center;
 }

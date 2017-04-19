@@ -7,6 +7,7 @@ var User = require('./user.js');
 // comment schema
 var commentSchema = mongoose.Schema({
   comments: String,
+  dancePiece: {type: mongoose.Schema.Types.ObjectId, ref: 'Dance'},
   postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
