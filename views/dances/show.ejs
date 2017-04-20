@@ -61,24 +61,21 @@
       <hr>
       <div class="commentsContainer">
           <ul>
+            <% for (var i=0; i<dance.comments.length; i++) { %>
+            <li>
+             (<%=dance.comments[i].commentByName%>):
+              <%=dance.comments[i].comments%>
 
-
-          <% for (var i=0; i<dance.comments.length; i++) { %>
-
-           <li>
-             <%=dance.comments[i].postedBy%>(<%=commentsPostArr[i]%>):
-             <%=dance.comments[i].comments%>
-
-           <div class="commentsBtn">
-            <% if (currentUser !== 'unknown') {
-                if (dance.comments[i].postedBy == currentUser._id)  { %>
+              <div class="commentsBtn">
+                <% if (currentUser !== 'unknown') {
+                  if (dance.comments[i].postedBy == currentUser._id)  { %>
 
                 <a href="/comments/<%=dance.comments[i].id%>/edit" class="btn btn-xs btn-info">Edit</a>
                 <% }
                 if (dance.comments[i].postedBy == currentUser._id || dancePublisher.id == currentUser._id) { %>
                 <a href="/comments/<%=dance.comments[i].id%>/delete" class="btn btn-xs btn-info">Delete</a>
 
-              <% } } %>
+                <% } } %>
               </div>
               </li>
           <% } %>

@@ -47,7 +47,11 @@ router.get('/new', function(req,res){
 router.post('/', function(req, res){
   console.log(req.body);
   Dance.create(req.body, function(err, createdRecord){
+    if (err){
+      res.redirect('/dances/new');
+    } else {
       res.redirect('/dances');
+    }
   });
 });
 
@@ -60,23 +64,11 @@ router.get('/:id', function(req,res){
   }
 
   Dance.findById(req.params.id, function(err, dbRecord){
-    var commentsPostArr = [];
-
-    for (var i=0; i<dbRecord.comments.length; i++){
-      //console.log(dbRecord.comments[i].postedBy);
-      User.findById(dbRecord.comments[i].postedBy, function(err,foundOne){
-      //console.log(foundOne, foundOne.displayName);
-      commentsPostArr.push(foundOne.displayName);
-      });
-    }
-
     User.findById(dbRecord.postedBy, function(err, foundUser){
-      console.log(commentsPostArr);
-      res.render('dances/show.ejs',{
-        dance: dbRecord,
-        dancePublisher: foundUser,
-        currentUser: currentUser,
-        commentsPostArr: commentsPostArr
+       res.render('dances/show.ejs',{
+          dance: dbRecord,
+          dancePublisher: foundUser,
+          currentUser: currentUser,
       });
     });
   });

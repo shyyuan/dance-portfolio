@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user.js');
 var Dance = require('../models/dance.js');
+var Comments = require('../models/comment.js')
 var bcrypt = require('bcrypt');
 var currentUser = 'unknown';
 
@@ -88,22 +89,30 @@ router.get('/:id/edit', function(req, res){
 // Update profile in DB
 router.put('/:id', function(req, res){
   // console.log('edit profile: '+req.session.loggedInUser);
-  // if (req.session.loggedInUser !== undefined){
-  //   currentUser = req.session.loggedInUser
-  // } else {
-  //   currentUser = 'unknown';
-  // }
-  // if (currentUser === 'unknown' || currentUser.id !== req.params.id){
-  //   res.redirect('/sessions/new');
-  // } else {
+  if (req.session.loggedInUser !== undefined){
+    currentUser = req.session.loggedInUser
+  } else {
+    currentUser = 'unknown';
+  }
+  if (currentUser === 'unknown'){ // || currentUser.id !== req.params.id){
+    res.redirect('/sessions/new');
+  } else {
     if (req.body.action === 'Cancel'){
-      res.redirect('/users');
+      res.redirect('/');
     } else {
-      User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, response){
-        res.redirect('/users');
+      User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, updatedUser){
+        Comments.update({postedBy: req.params.id},
+        {$set: {commentByName: req.body.displayName}},
+        {multi: true}, function(err, response){
+          Dance.update({'comments.postedBy': req.params.id},
+          {$set: {'comments.$.commentByName':req.body.displayName}},
+          {multi: true}, function(err, response){
+            res.redirect('/users');
+          });
+        });
       });
     }
-  //}
+  }
 });
 
 module.exports = router;

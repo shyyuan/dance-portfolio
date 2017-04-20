@@ -8,10 +8,10 @@ var User = require('./user.js');
 // dance schema
 var danceSchema = mongoose.Schema({
   title: {type: String, required: true},
-  description: String,
+  description: {type: String, require: true},
   postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-  img: String,
-  video: String,
+  img: {type: String, required: true},
+  video: {type: String, required: true},
   likes: Number,
   comments: [Comments.schema]
 });

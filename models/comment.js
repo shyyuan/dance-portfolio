@@ -8,7 +8,8 @@ var User = require('./user.js');
 var commentSchema = mongoose.Schema({
   comments: String,
   dancePiece: {type: mongoose.Schema.Types.ObjectId, ref: 'Dance'},
-  postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  commentByName: String
 });
 
 var Comments = mongoose.model('Comment', commentSchema);

@@ -20,7 +20,7 @@
       <% if (currentUser !== 'unknown') { %>
         Hi, <span class="standOut"><%=currentUser.displayName%></span>, welcome to the Dance Portfolio site, where you can view the dance collection, leave a comments or post your favorite dance pieces to create your own collection.
       <% } else { %>
-        Welcome to the Dance Portfolio site, where you can view the dance collection, or sign up to leave a comments and to post your favorite dance piece as a contributor.
+        Welcome to the Dance Portfolio site, where you can view the dance collection, or sign up to leave comments and to post your favorite dance piece as a contributor.
       <% } %>
       </h3>
 
@@ -32,12 +32,13 @@
     <img class="mySlides w3-animate-fading homeImg" src="./images/11-Bells_DSC_4412.JPG" alt="">
     <img class="mySlides w3-animate-fading homeImg" src="./images/10-2-YiParadise_DSC_4502.JPG" alt="">
     <img class="mySlides w3-animate-fading homeImg" src="./images/12-DSC04943.JPG" alt="">
+      </div>
+
+    <br/><br/><br/><br/>
     </div>
 
 
-    </div>
-
-    <!-- Credit to
+    <!-- Slide show credit to
     https://www.w3schools.com/w3css/w3css_slideshow.asp -->
     <script>
 var myIndex = 0;
@@ -52,7 +53,7 @@ function carousel() {
     myIndex++;
     if (myIndex > x.length) {myIndex = 1}
     x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 6000);
+    setTimeout(carousel, 7000);
 }
 </script>
 

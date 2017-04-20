@@ -32,15 +32,18 @@ router.get('/:danceId/new', function(req, res){
 // Insert new comments into DB
 router.post('/', function(req,res){
   Dance.findById(req.body.dancePiece, function(err, foundDance){
-    Comments.create(req.body, function(err, createdComments){
-      foundDance.comments.push(createdComments);
-      foundDance.save(function(err,saveComments){
-        res.redirect('/dances/'+req.body.dancePiece);
+    User.findById(req.body.postedBy, function(err, foundUser){
+      req.body.commentByName = foundUser.displayName;
+      Comments.create(req.body, function(err, createdComments){
+        foundDance.comments.push(createdComments);
+        foundDance.save(function(err,saveComments){
+          res.redirect('/dances/'+req.body.dancePiece);
+        });
       });
     });
   });
 });
-// Edit comments page
+// Get data to Edit comments page
 router.get('/:id/edit', function(req,res){
   if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser
