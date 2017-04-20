@@ -30,7 +30,7 @@ router.post('/', function(req, res){
     } else {
       if (req.body.password !== null && bcrypt.compareSync(req.body.password,foundUser.password)){
         req.session.loggedInUser = foundUser;
-        res.redirect('/dances');
+        res.redirect('/');
       } else {
         //res.redirect('/sessions/new')
         //res.render('sessions/failed.ejs');
@@ -59,10 +59,10 @@ router.get('/:id/delete', function(req, res){
   req.session.loggedInUser = 'unknown';
   req.session.destroy(function(){
     currentUser = 'unknown';
-    //res.redirect('/');
-    res.render('index.ejs', {
-      currentUser: currentUser
-    });
+    res.redirect('/');
+    // res.render('index.ejs', {
+    //   currentUser: currentUser
+    // });
   });
 });
 

@@ -5,22 +5,30 @@
 
 body {
   background-color: #e6ffe6;
+
+  font-family: 'Courgette', cursive;
+
+  font-size: 2em;
+  color: #004d4d;
+  /*#337AB8;   #004d4d;*/
 }
+
 h1, h2, h3, h4,  {
   text-align: center;
+  color: #3973ac;
 }
 
 .centerDiv {
-  padding: 0 8% 0 12%;
+  padding: 0 8% 0 10%;
 }
 
 .homeImg {
   width: 80%;
+  box-shadow: 10px 10px 5px grey;
 }
 
 .navbar {
   background: #b3ffb3;
-  color: black;
 }
 
 .alert {
@@ -28,7 +36,7 @@ h1, h2, h3, h4,  {
 }
 .dance {
   display: inline-block;
-  background-color: #F8ECD8;
+  background-color: #ccffcc;  /*#F8ECD8;*/
   padding: 1em 1em 2em 1em;
   border-radius: 10px;
   margin: .5em;
@@ -36,10 +44,43 @@ h1, h2, h3, h4,  {
 .danceImg{
   width: 250px;
   height: 180px;
-  border: 1px solid white;
+  /*border: 1px solid white;*/
+  border-radius: 5px;
   align-items: center;
 }
 
 .viewImg {
   width: 90%;
+}
+
+.btn-width {
+  width: 90px;
+}
+
+.heart {
+  width: 30px;
+  height: 30px;
+}
+
+li {
+  list-style: none;
+}
+main {
+  width: 70%;
+  text-align: center;
+  padding: 0 1em;
+}
+main > ul > li:nth-child(odd){
+  background-color: #ccffcc;
+}
+.commentsContainer > ul > li:nth-child(odd) {
+  background-color: #ccffcc;
+}
+.commentsBtn {
+  float: right;
+  display: inline-block;
+}
+.standOut {
+  color: #336600;
+  font-weight: bolder;
 }

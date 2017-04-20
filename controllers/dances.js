@@ -59,22 +59,30 @@ router.get('/:id', function(req,res){
     currentUser = 'unknown';
   }
 
-    Dance.findById(req.params.id).populate('Comments.PostedBy','displayName').exec(function(err, dbRecord){
-      console.log(dbRecord);
-      User.findById(dbRecord.postedBy, function(err, foundUser){
-        //console.log('Dance: ' + dbRecord);
-        //console.log('Posted: ' + foundUser);
-        res.render('dances/show.ejs',{
-          dance: dbRecord,
-          dancePublisher: foundUser,
-          currentUser: currentUser
+  Dance.findById(req.params.id, function(err, dbRecord){
+    var commentsPostArr = [];
 
+    for (var i=0; i<dbRecord.comments.length; i++){
+      //console.log(dbRecord.comments[i].postedBy);
+      User.findById(dbRecord.comments[i].postedBy, function(err,foundOne){
+      //console.log(foundOne, foundOne.displayName);
+      commentsPostArr.push(foundOne.displayName);
+      });
+    }
+
+    User.findById(dbRecord.postedBy, function(err, foundUser){
+      console.log(commentsPostArr);
+      res.render('dances/show.ejs',{
+        dance: dbRecord,
+        dancePublisher: foundUser,
+        currentUser: currentUser,
+        commentsPostArr: commentsPostArr
       });
     });
   });
 });
 
-// edit danve info page
+// edit dance info page
 router.get('/:id/edit', function(req, res){
   if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser

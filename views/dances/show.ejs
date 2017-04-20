@@ -20,7 +20,8 @@
       <div class="row">
         <div class="col-md-6">
           <img class="viewImg" src="<%=dance.img%>">
-          <h5><%=dance.description%></h5>
+          <br/><br/>
+          <p><%=dance.description%></p>
         </div>
 
         <div class="col-md-6">
@@ -29,40 +30,59 @@
           <p><a href="<%=dance.video%>" target="_blank"><%=dance.video%></a></p>
           <br/>
 
-          <div>
-            <ul>
-              <li><a href="/dances/<%=dance.id%>/like">like</a>: <%=dance.likes%> </li>
-              <% if (currentUser !== 'unknown') { %>
-              <li><a href="/comments/<%=dance.id%>/new">Comments</a></li>
-              <% }%>
-              <% if (dancePublisher.id === currentUser._id) { %>
-              <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
-                <input type="hidden" name="postedBy" value="<%=dancePublisher.id%>">
-              <li><input type="submit" name="" value="Delete"></li>
-              </form>
-              <li><a href="/dances/<%=dance.id%>/edit">Edit</a></li>
-              <% } %>
-            </ul>
-          </div>
+
         </div> <!-- col-md-6 -->
       </div><!-- row -->
-      <hr>
-      <div>
-        <ul>
-          <% for (var i=0; i<dance.comments.length; i++) { %>
-            <li><%=dance.comments[i].postedBy%> (<%=dance.comments[i].displayName%>): <%=dance.comments[i].comments%>
-              (Current User: <%=currentUser._id%> )
+      <div class="row">
+        <div class="col-md-4"> </div>
+        <div class="col-md-1" >
+          <a href="/dances/<%=dance.id%>/like"><img class="heart" src="../images/Heart.png" alt="like"></a> <%=dance.likes%>
+        </div>
+        <div class="col-md-1">
+          <% if (currentUser !== 'unknown') { %>
+            <a href="/comments/<%=dance.id%>/new" class="btn btn-primary">Comments</a>
+          <% }%>
+        </div>
+        <% if (dancePublisher.id === currentUser._id) { %>
+        <div class="col-md-1">
+            <form class="" action="/dances/<%=dance._id%>?_method=DELETE" method="post">
+              <input type="hidden" name="postedBy" value="<%=dancePublisher.id%>">
+              <input type="submit" name="" value="Delete" class="btn btn-primary btn-width">
+            </form>
+        </div>
+        <div class="col-md-1">
+          <a href="/dances/<%=dance.id%>/edit" class="btn btn-primary btn-width">Edit</a>
+        </div>
+        <% } %>
 
+        <div class="col-md-4"> </div>
+      </div>
+
+      <hr>
+      <div class="commentsContainer">
+          <ul>
+
+
+          <% for (var i=0; i<dance.comments.length; i++) { %>
+
+           <li>
+             <%=dance.comments[i].postedBy%>(<%=commentsPostArr[i]%>):
+             <%=dance.comments[i].comments%>
+
+           <div class="commentsBtn">
             <% if (currentUser !== 'unknown') {
                 if (dance.comments[i].postedBy == currentUser._id)  { %>
-                <a href="/comments/<%=dance.comments[i].id%>/edit">Edit</a>
+
+                <a href="/comments/<%=dance.comments[i].id%>/edit" class="btn btn-xs btn-info">Edit</a>
                 <% }
                 if (dance.comments[i].postedBy == currentUser._id || dancePublisher.id == currentUser._id) { %>
-                <a href="/comments/<%=dance.comments[i].id%>/delete">Delete</a>            
+                <a href="/comments/<%=dance.comments[i].id%>/delete" class="btn btn-xs btn-info">Delete</a>
+
               <% } } %>
-            </li>
-          <% }%>
-        </ul>
+              </div>
+              </li>
+          <% } %>
+          </ul>
 
       </div>
 

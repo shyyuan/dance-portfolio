@@ -44,7 +44,7 @@ router.post('/', function(req, res){
   User.create(req.body, function(err, createdUser){
     // auto sign in and send to dances index page
     req.session.loggedInUser = createdUser;
-    res.redirect('/dances');
+    res.redirect('/');
   });
 });
 

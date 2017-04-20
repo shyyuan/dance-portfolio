@@ -3,29 +3,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include ./partials/head %>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <% include ./partials/head %>
+
   </head>
   <body>
     <% include ./partials/nav %>
-    <div class="container ">
+    <div class="container">
 
-      <h3><% if (currentUser !== 'unknown') { %><%=currentUser.displayName%><% } %></h3>
-      <%=currentUser._id%>
-      <h4>welcome to the Dance Portfolio site.  View the dances in the collection, sign up to leave a comments or to be a contributor to post your favorite dance piece.</h4>
+      <h1>Dances Portfolio</h1>
+
+
+      <h3>
+      <% if (currentUser !== 'unknown') { %>
+        Hi, <span class="standOut"><%=currentUser.displayName%></span>, welcome to the Dance Portfolio site, where you can view the dance collection, leave a comments or post your favorite dance pieces to create your own collection.
+      <% } else { %>
+        Welcome to the Dance Portfolio site, where you can view the dance collection, or sign up to leave a comments and to post your favorite dance piece as a contributor.
+      <% } %>
+      </h3>
+
       <br/><br/>
-      <div class="w3-content w3-section centerDiv"
+      <div class="w3-content w3-section centerDiv">
     <img class="mySlides w3-animate-fading homeImg" src="./images/09-1-FJ7_7857.jpg" alt="">
-    <img class="mySlides w3-animate-fading homeImg" src="./images/10-1-DesertBeauties_FJ79363.jpg" alt="">
     <img class="mySlides w3-animate-fading homeImg" src="./images/10-2-BNC-51.jpg" alt="">
-    <img class="mySlides w3-animate-fading homeImg" src="./images/10-2-YiParadise_DSC_4502.JPG" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/10-1-DesertBeauties_FJ79363.jpg" alt="">
     <img class="mySlides w3-animate-fading homeImg" src="./images/11-Bells_DSC_4412.JPG" alt="">
+    <img class="mySlides w3-animate-fading homeImg" src="./images/10-2-YiParadise_DSC_4502.JPG" alt="">
     <img class="mySlides w3-animate-fading homeImg" src="./images/12-DSC04943.JPG" alt="">
     </div>
 
 
     </div>
+
     <!-- Credit to
     https://www.w3schools.com/w3css/w3css_slideshow.asp -->
     <script>
@@ -41,7 +52,7 @@ function carousel() {
     myIndex++;
     if (myIndex > x.length) {myIndex = 1}
     x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 4000);
+    setTimeout(carousel, 6000);
 }
 </script>
 
