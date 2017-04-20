@@ -89,7 +89,7 @@ router.put('/:id', function(req,res){
     });
   }
 });
-
+// Delete a comment
 router.get('/:id/delete', function(req,res){
   if (req.session.loggedInUser !== undefined){
     currentUser = req.session.loggedInUser

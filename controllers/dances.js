@@ -31,8 +31,6 @@ router.get('/new', function(req,res){
   } else {
     currentUser = 'unknown';
   }
-  //console.log(req.session.loggedInUser);
-  //console.log(currentUser);
   // only logged in user can post new dance
   if (currentUser === 'unknown'){
     res.redirect('/sessions/new');

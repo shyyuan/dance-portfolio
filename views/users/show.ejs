@@ -11,19 +11,16 @@
       <% include ../partials/nav %>
       <div class="container-fluid centerDiv">
 
-
       <h1><%=user.displayName%>'s Collection</h1>
 
-
-
-              <% for(var i = 0; i < dances.length; i++){ %>
+            <% for(var i = 0; i < dances.length; i++){ %>
               <div class="dance">
                 <h3 class="dance-title"><a href="/dances/<%=dances[i].id%>"><%=dances[i].title%></a></h3>
                 <div class="danceImg">
                   <img class="danceImg" src="<%=dances[i].img%>" alt="">
                 </div>
               </div>
-              <% } %>
+            <% } %>
 
       </div>
   </body>

@@ -60,9 +60,6 @@ router.get('/:id/delete', function(req, res){
   req.session.destroy(function(){
     currentUser = 'unknown';
     res.redirect('/');
-    // res.render('index.ejs', {
-    //   currentUser: currentUser
-    // });
   });
 });
 
