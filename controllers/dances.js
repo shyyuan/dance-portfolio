@@ -43,7 +43,7 @@ router.get('/new', function(req,res){
 
 // Create new dance record in db
 router.post('/', function(req, res){
-  console.log(req.body);
+  //console.log(req.body);
   Dance.create(req.body, function(err, createdRecord){
     if (err){
       res.redirect('/dances/new');

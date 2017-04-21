@@ -18,9 +18,9 @@ router.get('/new', function(req,res){
 
 // Check username and password after signed in
 router.post('/', function(req, res){
-  console.log(req.body);
+  //console.log(req.body);
   User.findOne({username:req.body.username}, function(err, foundUser){
-    console.log(foundUser);
+    //console.log(foundUser);
     if (foundUser === null ) {
       //res.redirect('/sessions/new')
       //res.render('sessions/failed.ejs');
